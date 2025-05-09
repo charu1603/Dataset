@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 function App() {
   const [data, setData] = useState([]);
   const [monthlyStats, setMonthlyStats] = useState({});
-const [currentPage, setCurrentPage] = useState(1);
-const itemsPerPage = 50;
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 50;
 
   useEffect(() => {
     fetch("/data/data.txt")
@@ -93,10 +93,10 @@ const itemsPerPage = 50;
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-const endIndex = startIndex + itemsPerPage;
-const paginatedData = data.slice(startIndex, endIndex);
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data.slice(startIndex, endIndex);
 
-const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   return (
     <div className="p-6 space-y-10">
@@ -169,7 +169,6 @@ const totalPages = Math.ceil(data.length / itemsPerPage);
           </thead>
           <tbody>
             {paginatedData.map((entry, idx) => (
-
               <tr key={idx}>
                 <td className="p-2 border border-green-400">{entry.Date}</td>
                 <td className="p-2 border border-green-400">{entry.SKU}</td>
@@ -188,25 +187,26 @@ const totalPages = Math.ceil(data.length / itemsPerPage);
         </table>
       </div>
       <div className="flex justify-center items-center mt-4 space-x-4">
-  <button
-    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-    disabled={currentPage === 1}
-    className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
-  >
-    Prev
-  </button>
-  <span className="font-semibold text-green-800">
-    Page {currentPage} of {totalPages}
-  </span>
-  <button
-    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-    disabled={currentPage === totalPages}
-    className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
-  >
-    Next
-  </button>
-</div>
-
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <span className="font-semibold text-green-800">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
